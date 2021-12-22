@@ -1,0 +1,303 @@
+﻿<UserControl x:Class="BFPMusicPlayer.Theme.PlayControll"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:BFPMusicPlayer.Theme"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewmodel="clr-namespace:BFPMusicPlayer.ViewModel.UserControl"
+             d:DataContext="{d:DesignInstance Type=viewmodel:PlayBackViewModel}"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./Resource/PlayControll/ButtonPlay.xaml" />
+                <ResourceDictionary Source="./Resource/PlayControll/Slider.xaml" />
+                <ResourceDictionary Source="./Resource/PlayControll/HorizontalSlider.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <PathGeometry x:Key="icon_back" Figures="M480 145.52v221c0 13.28-13 21.72-23.63 15.35L267.5 268.8c-9.24-5.53-9.24-20.07 0-25.6l188.87-113C467 123.8 480 132.24 480 145.52zM251.43 145.52v221c0 13.28-13 21.72-23.63 15.35L38.93 268.8c-9.24-5.53-9.24-20.07 0-25.6l188.87-113c10.64-6.4 23.63 2.04 23.63 15.32z" />
+            <PathGeometry x:Key="icon_next" Figures="M32 145.52v221c0 13.28 13 21.72 23.63 15.35l188.87-113c9.24-5.53 9.24-20.07 0-25.6l-188.87-113C45 123.8 32 132.24 32 145.52zM260.57 145.52v221c0 13.28 13 21.72 23.63 15.35l188.87-113c9.24-5.53 9.24-20.07 0-25.6l-188.87-113c-10.64-6.47-23.63 1.97-23.63 15.25z" />
+            <PathGeometry x:Key="icon_volup" Figures="M232 416a23.88 23.88 0 01-14.2-4.68 8.27 8.27 0 01-.66-.51L125.76 336H56a24 24 0 01-24-24V200a24 24 0 0124-24h69.75l91.37-74.81a8.27 8.27 0 01.66-.51A24 24 0 01256 120v272a24 24 0 01-24 24zm-106.18-80zm-.27-159.86zM320 336a16 16 0 01-14.29-23.19c9.49-18.87 14.3-38 14.3-56.81 0-19.38-4.66-37.94-14.25-56.73a16 16 0 0128.5-14.54C346.19 208.12 352 231.44 352 256c0 23.86-6 47.81-17.7 71.19A16 16 0 01320 336z" />
+            <PathGeometry x:Key="icon_volup2" Figures="M416 432a16 16 0 01-13.39-24.74C429.85 365.47 448 323.76 448 256c0-66.5-18.18-108.62-45.49-151.39a16 16 0 1127-17.22C459.81 134.89 480 181.74 480 256c0 64.75-14.66 113.63-50.6 168.74A16 16 0 01416 432z" />
+            <PathGeometry x:Key="icon_volup1" Figures="M368 384a16 16 0 01-13.86-24C373.05 327.09 384 299.51 384 256c0-44.17-10.93-71.56-29.82-103.94a16 16 0 0127.64-16.12C402.92 172.11 416 204.81 416 256c0 50.43-13.06 83.29-34.13 120a16 16 0 01-13.87 8z" />
+            <PathGeometry x:Key="icon_voldown" Figures="M296 416.19a23.92 23.92 0 01-14.21-4.69l-.66-.51-91.46-75H120a24 24 0 01-24-24V200a24 24 0 0124-24h69.65l91.46-75 .66-.51A24 24 0 01320 119.83v272.34a24 24 0 01-24 24zM384 336a16 16 0 01-14.29-23.18c9.49-18.9 14.3-38 14.3-56.82 0-19.36-4.66-37.92-14.25-56.73a16 16 0 0128.5-14.54C410.2 208.16 416 231.47 416 256c0 23.83-6 47.78-17.7 71.18A16 16 0 01384 336z" />
+            <PathGeometry x:Key="icon_plus" Figures="M256 112v288M400 256H112" />
+            <PathGeometry x:Key="icon_music" Figures="M421.84 37.37a25.86 25.86 0 00-22.6-4.46L199.92 86.49A32.3 32.3 0 00176 118v226c0 6.74-4.36 12.56-11.11 14.83l-.12.05-52 18C92.88 383.53 80 402 80 423.91a55.54 55.54 0 0023.23 45.63A54.78 54.78 0 00135.34 480a55.82 55.82 0 0017.75-2.93l.38-.13 21.84-7.94A47.84 47.84 0 00208 423.91v-212c0-7.29 4.77-13.21 12.16-15.07l.21-.06L395 150.14a4 4 0 015 3.86v141.93c0 6.75-4.25 12.38-11.11 14.68l-.25.09-50.89 18.11A49.09 49.09 0 00304 375.92a55.67 55.67 0 0023.23 45.8 54.63 54.63 0 0049.88 7.35l.36-.12 21.84-7.95A47.83 47.83 0 00432 375.92V58a25.74 25.74 0 00-10.16-20.63z" />
+            <PathGeometry x:Key="icon_love" Figures="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z" />
+            <PathGeometry x:Key="icon_looptop" Figures="M448 224H154c-58.76 0-106 49.33-106 108v20 M400 160l64 64-64 64" />
+            <PathGeometry x:Key="icon_loopbottom" Figures="M64 288h294c58.76 0 106-49.33 106-108v-20 M112 352l-64-64 64-64" />
+
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <Border Width="560"
+            Height="90"
+            Margin="20"
+            Background="White"
+            CornerRadius="15">
+        <Grid HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Button Width="30"
+                        Height="30"
+                        Margin="30,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="#F4F5FE"
+                        Command="{Binding AddPlaylistCommand}"
+                        Foreground="#909195">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border Width="{TemplateBinding Width}"
+                                        Height="{TemplateBinding Height}"
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="7" />
+
+                                <Path Width="15"
+                                      Height="15"
+                                      Data="{StaticResource icon_love}"
+                                      Fill="{Binding FillLoveIcon}"
+                                      Stretch="Uniform"
+                                      Stroke="{Binding StrokeLoveIcon}" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button Width="30"
+                        Height="30"
+                        Margin="70,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="#F4F5FE"
+                        Command="{Binding AddMusic}"
+                        Foreground="#909195">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border Width="{TemplateBinding Width}"
+                                        Height="{TemplateBinding Height}"
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="7" />
+
+                                <Path Width="10"
+                                      Height="10"
+                                      Margin="10,-12,0,0"
+                                      Data="{StaticResource icon_plus}"
+                                      Stretch="Uniform"
+                                      Stroke="{TemplateBinding Foreground}" />
+
+                                <Path Width="13"
+                                      Height="13"
+                                      Margin="-10,5,0,0"
+                                      Data="{StaticResource icon_music}"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Stretch="Uniform" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button Width="40"
+                        Height="30"
+                        Margin="110,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="#F4F5FE"
+                        Command="{Binding LoopButton}"
+                        Content="{Binding LoopType}"
+                        Foreground="{Binding LoopButtonForeground}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border Width="{TemplateBinding Width}"
+                                        Height="{TemplateBinding Height}"
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="7" />
+
+                                <Path Width="20"
+                                      Height="20"
+                                      Margin="0,-10,0,0"
+                                      Data="{StaticResource icon_looptop}"
+                                      Stretch="Uniform"
+                                      Stroke="{TemplateBinding Foreground}" />
+
+                                <Path Width="20"
+                                      Height="20"
+                                      Margin="0,10,0,0"
+                                      Data="{StaticResource icon_loopbottom}"
+                                      Stretch="Uniform"
+                                      Stroke="{TemplateBinding Foreground}" />
+
+                                <TextBlock FontFamily="/BFPMusicPlayer;component/Assets/#Nunito Light"
+                                           FontSize="0.5"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           Text="{TemplateBinding ContentStringFormat}" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button Width="30"
+                        Height="30"
+                        Margin="-95,5,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="white"
+                        Command="{Binding BackCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border Background="Transparent" />
+                                <Path Width="20"
+                                      Height="20"
+                                      Data="{StaticResource icon_back}"
+                                      Fill="#15111E"
+                                      Stretch="Uniform" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <CheckBox HorizontalAlignment="Center"
+                          Command="{Binding PlayCommand}"
+                          IsChecked="{Binding Playing}"
+                          Style="{StaticResource ButtonPlay}" />
+
+                <Button Width="30"
+                        Height="30"
+                        Margin="95,5,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="White"
+                        Command="{Binding NextCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border Background="Transparent" />
+
+                                <Path Width="20"
+                                      Height="20"
+                                      Data="{StaticResource icon_next}"
+                                      Fill="#15111E"
+                                      Stretch="Uniform" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+
+                <Button Width="20"
+                        Height="20"
+                        Margin="0,5,130,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Background="White"
+                        Command="{Binding VolDownCommand}"
+                        Foreground="#15111E">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border Background="Transparent" />
+
+                                <Path Width="13"
+                                      Height="13"
+                                      Data="{StaticResource icon_voldown}"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Stretch="Uniform" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Slider Width="80"
+                        Margin="0,5,47,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Maximum="0.4"
+                        Minimum="0"
+                        Style="{StaticResource HorizontalSlider}"
+                        Value="{Binding SliderVolValue}" />
+
+                <Button Width="30"
+                        Height="20"
+                        Margin="0,5,20,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Background="White"
+                        Command="{Binding VolUpCommand}"
+                        Foreground="#15111E">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border Background="Transparent" />
+
+                                <Path Width="13"
+                                      Height="13"
+                                      Data="{StaticResource icon_volup}"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Stretch="Uniform" />
+                                <Path Width="11"
+                                      Height="11"
+                                      Margin="18,0,0,0"
+                                      Data="{StaticResource icon_volup1}"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Stretch="Uniform" />
+
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="420" />
+                    <ColumnDefinition Width="70" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <TextBlock Margin="20,0,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               FontFamily="/BFPMusicPlayer;component/Assets/#Nunito Light"
+                               Text="{Binding CurrentTime}" />
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Slider Width="420"
+                            Margin="0,0,0,0"
+                            Maximum="{Binding SliderMaxLocation}"
+                            Minimum="0"
+                            Style="{StaticResource HorizontalSlider}"
+                            Thumb.DragCompleted="ThumbDragCompleted"
+                            Thumb.DragDelta="ThumbDragDelta"
+                            Thumb.DragStarted="ThumbDragStarted"
+                            Value="{Binding SliderValue}" />
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <TextBlock Margin="0,0,20,0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Top"
+                               FontFamily="/BFPMusicPlayer;component/Assets/#Nunito Light"
+                               Text="{Binding EndTime}" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

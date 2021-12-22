@@ -1,0 +1,22 @@
+﻿<Page x:Class="BFPMusicPlayer.View.Youtube"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:BFPMusicPlayer.View"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+      Title="Youtube"
+      mc:Ignorable="d">
+
+    <Grid Background="#F4F5FE">
+        <wv2:WebView2 Name="webView"
+                      Width="800"
+                      Height="651"
+                      Margin="0,0,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Source="https://music.youtube.com/"
+                      UseLayoutRounding="True"
+                      ZoomFactor="0.8" />
+    </Grid>
+</Page>

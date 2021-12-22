@@ -1,0 +1,45 @@
+﻿<Window x:Class="BFPMusicPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:customcontrols="clr-namespace:BFPMusicPlayer.Theme"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:BFPMusicPlayer"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="BFP Music Player"
+        Width="1000"
+        Height="650"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Icon="./Assets/BFP Icon.png"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        mc:Ignorable="d">
+
+    <Border Background="#F4F5FE" CornerRadius="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="800" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" HorizontalAlignment="Left">
+                <customcontrols:SideMenu HasIcon="True" />
+                <customcontrols:WindowControl Margin="5,5"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Top" />
+
+            </Grid>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch">
+                <Frame x:Name="MainWindowFrame"
+                       Grid.Column="1"
+                       NavigationUIVisibility="Hidden" />
+                <customcontrols:PlayControll x:Name="PlayControll"
+                                             HorizontalAlignment="Left"
+                                             VerticalAlignment="Bottom" />
+            </Grid>
+        </Grid>
+    </Border>
+
+</Window>

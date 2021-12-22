@@ -1,0 +1,187 @@
+﻿<Page x:Class="BFPMusicPlayer.View.Dashboard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:customcontrols="clr-namespace:BFPMusicPlayer.Theme"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:BFPMusicPlayer.View"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:page="clr-namespace:BFPMusicPlayer.ViewModel.Page"
+      d:DataContext="{d:DesignInstance Type=page:DashboardViewModel}"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Theme/PlayListDataGrid.xaml" />
+                <ResourceDictionary Source="/Theme/Resource/SideMenu/ScrollViewer.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <PathGeometry x:Key="icon_play" Figures="M112 111v290c0 17.44 17 28.52 31 20.16l247.9-148.37c12.12-7.25 12.12-26.33 0-33.58L143 90.84c-14-8.36-31 2.72-31 20.16z" />
+            <PathGeometry x:Key="icon_pause" Figures="M208 432h-48a16 16 0 01-16-16V96a16 16 0 0116-16h48a16 16 0 0116 16v320a16 16 0 01-16 16zM352 432h-48a16 16 0 01-16-16V96a16 16 0 0116-16h48a16 16 0 0116 16v320a16 16 0 01-16 16z" />
+
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <customcontrols:SearchBox Margin="20,20,0,0"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top" />
+
+            <TextBlock Margin="40,80,0,0"
+                       FontFamily="/BFPMusicPlayer;component/Assets/#Nunito ExtraBold"
+                       FontSize="20"
+                       Foreground="#15111E"
+                       Text="My Favorite" />
+
+            <DataGrid x:Name="PlayListDataGrid"
+                      Margin="20,120,0,140"
+                      HorizontalAlignment="Left"
+                      AutoGenerateColumns="False"
+                      Background="Transparent"
+                      BorderBrush="Transparent"
+                      GridLinesVisibility="None"
+                      HeadersVisibility="Column"
+                      HorizontalScrollBarVisibility="Auto"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding PlayList, Mode=OneWay}"
+                      RowDetailsVisibilityMode="Collapsed"
+                      SelectedItem="{Binding SelectedData}"
+                      SelectedValue="{Binding SelectionValue}"
+                      SelectionMode="Single"
+                      VerticalScrollBarVisibility="Auto"
+                      VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="40"
+                                            Header="#"
+                                            SortMemberPath="#">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="PlayButton"
+                                            Grid.Column="0"
+                                            Content=""
+                                            Visibility="Hidden">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Grid>
+                                                    <Border Background="White" />
+                                                    <Path Width="13"
+                                                          Height="13"
+                                                          Data="{StaticResource icon_play}"
+                                                          Fill="#909195"
+                                                          Stretch="Uniform" />
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    <Button x:Name="PauseButton"
+                                            Grid.Column="0"
+                                            Content=""
+                                            Visibility="Hidden">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Grid>
+                                                    <Border Background="White" />
+
+                                                    <Path Width="13"
+                                                          Height="13"
+                                                          Data="{StaticResource icon_pause}"
+                                                          Fill="Black"
+                                                          Stretch="Uniform" />
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    <TextBlock x:Name="NumberText"
+                                               Text="{Binding Number}"
+                                               Visibility="Visible" />
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType=DataGridRow}}" Value="True">
+                                        <Setter TargetName="PlayButton" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="NumberText" Property="Visibility" Value="Hidden" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" Value="True">
+                                        <Setter TargetName="PauseButton" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="NumberText" Property="Visibility" Value="Hidden" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Width="150"
+                                        Binding="{Binding Title}"
+                                        Header="TITLE" />
+                    <DataGridTextColumn Width="150"
+                                        Binding="{Binding Artist}"
+                                        Header="ARTIST" />
+                    <DataGridTextColumn Width="60"
+                                        Binding="{Binding Time}"
+                                        Header="TIME" />
+                    <DataGridTextColumn Width="150"
+                                        Binding="{Binding Album}"
+                                        Header="ALBUM" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Grid.Column="1">
+
+            <TextBlock Margin="0,20,0,0"
+                       FontFamily="/BFPMusicPlayer;component/Assets/#Nunito ExtraBold"
+                       FontSize="15"
+                       Foreground="#15111E"
+                       Text="History" />
+
+            <DataGrid x:Name="HistoryDataGrid"
+                      Margin="0,45,0,130"
+                      HorizontalAlignment="Left"
+                      AutoGenerateColumns="False"
+                      Background="Transparent"
+                      BorderBrush="Transparent"
+                      Foreground="#15111E"
+                      GridLinesVisibility="None"
+                      HeadersVisibility="Column"
+                      HorizontalScrollBarVisibility="Auto"
+                      IsHitTestVisible="False"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding HistoryPlayList, Mode=OneWay}"
+                      RowDetailsVisibilityMode="Collapsed"
+                      SelectionMode="Single"
+                      VerticalScrollBarVisibility="Visible"
+                      VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="40"
+                                        Binding="{Binding Number}"
+                                        Header="#" />
+
+                    <DataGridTextColumn Width="130"
+                                        Binding="{Binding Title}"
+                                        Header="TITLE" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <customcontrols:AlbumInfo Title="{Binding Title, Mode=OneWay}"
+                                      Margin="0,0,20,40"
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Bottom"
+                                      Album="{Binding Album, Mode=OneWay}"
+                                      AlbumImage="{Binding AlbumImage, Mode=OneWay}" />
+        </Grid>
+    </Grid>
+</Page>
