@@ -24,10 +24,24 @@ namespace BFPMusicPlayer.Backend
             _ = Task.Run(() => UpdateFile(UID));
         }
 
+        public void UpdateAllDB()
+        {
+            _ = Task.Run(() =>
+            {
+                ServerBackend serverBackend = new ServerBackend();
+                foreach (MusicModel data in serverBackend.GetMusic())
+                {
+                    MusicModel musicModel = GetMusicData(serverBackend.GetPath(data.UID));
+                    musicModel.UID = data.UID;
+                    serverBackend.UpdateMusic(musicModel);
+                }
+            });
+        }
+
         private void UpdateFile(string UID)
         {
             ServerBackend serverBackend = new ServerBackend();
-            MusicModel musicModel = GetNewMusic(serverBackend.GetPath(UID));
+            MusicModel musicModel = GetMusicData(serverBackend.GetPath(UID));
             musicModel.UID = UID;
 
             serverBackend.UpdateMusic(musicModel);
@@ -45,7 +59,7 @@ namespace BFPMusicPlayer.Backend
                 ServerBackend serverBackend = new ServerBackend();
                 if (!serverBackend.CheckFile(GetPath(openFileDialog.FileName), GetFileName(openFileDialog.FileName)))
                 {
-                    MusicModel musicModel = GetNewMusic(openFileDialog.FileName);
+                    MusicModel musicModel = GetMusicData(openFileDialog.FileName);
 
                     while (true)
                     {
@@ -92,7 +106,7 @@ namespace BFPMusicPlayer.Backend
             return location;
         }
 
-        private MusicModel GetNewMusic(string path)
+        private MusicModel GetMusicData(string path)
         {
             TagLib.File tagFile = TagLib.File.Create(path);
 

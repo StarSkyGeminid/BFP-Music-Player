@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 
@@ -81,7 +82,7 @@ namespace BFPMusicPlayer.Backend
             }
         }
 
-        public bool CheckFileAndDelete(string UID)
+        public bool CheckFileAutoDelete(string UID)
         {
             string query = string.Format("SELECT * FROM file WHERE UID='{0}'", UID);
             string path = "";
@@ -114,48 +115,38 @@ namespace BFPMusicPlayer.Backend
             return false;
         }
 
-        public List<HistoryModel> GetHistory()
+        public ObservableCollection<HistoryModel> GetHistory()
         {
-            string query = "SELECT * FROM history";
+            string query = "SELECT history.UID, musicinfo.title, history.waktu FROM history INNER JOIN musicinfo WHERE history.UID=musicinfo.UID ORDER BY history.waktu DESC;";
 
-            List<HistoryModel> list = new List<HistoryModel>(5);
+            ObservableCollection<HistoryModel> history = new ObservableCollection<HistoryModel>();
 
             if (OpenConnection())
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 MySqlDataReader dataReader = cmd.ExecuteReader();
 
+                int count = 0;
                 while (dataReader.Read())
                 {
-                    list.Add(new HistoryModel()
+                    count++;
+                    history.Add(new HistoryModel()
                     {
-                        Time = dataReader["waktu"].ToString(),
                         UID = dataReader["UID"].ToString(),
+                        Title = dataReader["title"].ToString(),
+                        Time = dataReader["waktu"].ToString(),
+                        Number = count,
                     });
                 }
 
                 dataReader.Close();
-
-                foreach (HistoryModel data in list)
-                {
-                    string musicInfo = string.Format("SELECT * FROM musicinfo WHERE UID='{0}'", data.UID);
-                    cmd = new MySqlCommand(musicInfo, connection);
-                    dataReader = cmd.ExecuteReader();
-
-                    while (dataReader.Read())
-                    {
-                        data.Title = dataReader["title"].ToString();
-                    }
-                    dataReader.Close();
-                }
                 _ = CloseConnection();
-                list.Reverse();
-                return list;
+                return history;
             }
             else
             {
                 _ = CloseConnection();
-                return list;
+                return history;
             }
         }
 
@@ -236,9 +227,9 @@ namespace BFPMusicPlayer.Backend
             }
         }
 
-        public List<MusicModel> SearchMusic(string data, bool inPlaylist = false)
+        public ObservableCollection<MusicModel> SearchMusic(string data, bool inPlaylist = false)
         {
-            List<MusicModel> list = new List<MusicModel>();
+            ObservableCollection<MusicModel> searchValue = new ObservableCollection<MusicModel>();
 
             if (OpenConnection())
             {
@@ -256,7 +247,8 @@ namespace BFPMusicPlayer.Backend
                     count++;
                     TimeSpan timeSpan = TimeSpan.FromSeconds(int.Parse(dataReader["waktu"].ToString()));
                     string currentTime = int.Parse(dataReader["waktu"].ToString()) >= 3600 ? timeSpan.ToString(@"hh\:mm\:ss") : timeSpan.ToString(@"mm\:ss");
-                    list.Add(new MusicModel()
+
+                    searchValue.Add(new MusicModel()
                     {
                         UID = dataReader["UID"].ToString(),
                         Title = dataReader["title"].ToString(),
@@ -272,11 +264,11 @@ namespace BFPMusicPlayer.Backend
 
                 _ = CloseConnection();
 
-                return list;
+                return searchValue;
             }
             else
             {
-                return list;
+                return searchValue;
             }
         }
 
@@ -292,7 +284,6 @@ namespace BFPMusicPlayer.Backend
                 _ = cmd.Parameters.AddWithValue("@Uid", UID);
                 _ = cmd.Parameters.AddWithValue("@Time", secondsSinceEpoch.ToString());
                 _ = cmd.ExecuteNonQuery();
-
 
                 query = "SELECT COUNT(waktu) FROM history";
                 cmd = new MySqlCommand(query, connection);

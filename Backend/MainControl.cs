@@ -17,64 +17,42 @@ namespace BFPMusicPlayer.Backend
             serverBackend = new ServerBackend();
         }
 
-        public ObservableCollection<HistoryModel> GetHistory()
+        public ObservableCollection<MusicModel> GetMusicObser(bool inPlaylist)
         {
-            ObservableCollection<HistoryModel> history = new ObservableCollection<HistoryModel>();
+            ObservableCollection<MusicModel> music = new ObservableCollection<MusicModel>();
 
             int count = 0;
-            foreach (HistoryModel data in serverBackend.GetHistory())
+            foreach (MusicModel data in inPlaylist ? serverBackend.GetPlaylist() : serverBackend.GetMusic())
             {
-                count++;
-                data.Number = count;
-                history.Add(data);
-
+                if (serverBackend.CheckFileAutoDelete(data.UID))
+                {
+                    count++;
+                    data.Number = count;
+                    music.Add(data);
+                }
             }
-            return history;
+            return music;
+        }
+
+        public ObservableCollection<HistoryModel> GetHistory()
+        {
+            return serverBackend.GetHistory();
         }
 
         public ObservableCollection<MusicModel> GetPlaylist()
         {
-            ObservableCollection<MusicModel> music = new ObservableCollection<MusicModel>();
 
-            int count = 0;
-            foreach (MusicModel data in serverBackend.GetPlaylist())
-            {
-                if (serverBackend.CheckFileAndDelete(data.UID))
-                {
-                    count++;
-                    data.Number = count;
-                    music.Add(data);
-                }
-            }
-            return music;
+            return GetMusicObser(true);
         }
 
         public ObservableCollection<MusicModel> GetMusicList()
         {
-            ObservableCollection<MusicModel> music = new ObservableCollection<MusicModel>();
-
-            int count = 0;
-            foreach (MusicModel data in serverBackend.GetMusic())
-            {
-                if (serverBackend.CheckFileAndDelete(data.UID))
-                {
-                    count++;
-                    data.Number = count;
-                    music.Add(data);
-                }
-            }
-            return music;
+            return GetMusicObser(false);
         }
 
         public ObservableCollection<MusicModel> SearchMusic(string query, bool inPlayList = false)
         {
-            ObservableCollection<MusicModel> playlist = new ObservableCollection<MusicModel>();
-
-            foreach (MusicModel data in serverBackend.SearchMusic(query, inPlayList))
-            {
-                playlist.Add(data);
-            }
-            return playlist;
+            return serverBackend.SearchMusic(query, inPlayList);
         }
 
         public void AddHistory(string UID)

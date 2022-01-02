@@ -10,7 +10,7 @@ namespace BFPMusicPlayer
     {
         private App()
         {
-            GCLatencyMode = GCLatencyMode.LowLatency;
+            GCLatencyMode = GCLatencyMode.Interactive;
         }
 
         public GCLatencyMode GCLatencyMode { get; private set; }

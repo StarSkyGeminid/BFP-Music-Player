@@ -46,8 +46,8 @@ namespace BFPMusicPlayer.ViewModel.Page
             OnPropertyChanged(nameof(PlayList));
         }
 
-        public ObservableCollection<MusicModel> playList;
-        public ObservableCollection<HistoryModel> historyList;
+        private ObservableCollection<MusicModel> playList;
+        private ObservableCollection<HistoryModel> historyList;
         public ObservableCollection<MusicModel> PlayList
         {
             get
@@ -177,11 +177,10 @@ namespace BFPMusicPlayer.ViewModel.Page
                 HistoryPlayList = mainControl.GetHistory();
             });
 
-
-            CurrentPlay.Title = "Unknown";
-            CurrentPlay.Album = "Unknown";
-
             SetDefaultAlbumImage();
+
+            CurrentPlay.Title = "Not Playing";
+            CurrentPlay.Album = "";
 
             UpdateView();
         }

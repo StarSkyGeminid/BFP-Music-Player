@@ -17,6 +17,7 @@ namespace BFPMusicPlayer.ViewModel.Page
         private readonly MusicControl musicControl = new MusicControl();
 
         private MainControl mainControl;
+
         private MusicModel selectedValue;
 
         private Action delegateAction1;
@@ -52,9 +53,34 @@ namespace BFPMusicPlayer.ViewModel.Page
             }
         }
 
-        public ObservableCollection<MusicModel> MusicList { get; private set; }
+        public ObservableCollection<MusicModel> musicList;
+        public ObservableCollection<HistoryModel> historyList;
 
-        public ObservableCollection<HistoryModel> HistoryPlayList { get; private set; }
+        public ObservableCollection<MusicModel> MusicList
+        {
+            get
+            {
+                return musicList;
+            }
+            private set
+            {
+                musicList = value;
+                OnPropertyChanged(nameof(MusicList));
+            }
+        }
+
+        public ObservableCollection<HistoryModel> HistoryPlayList
+        {
+            get
+            {
+                return historyList;
+            }
+            private set
+            {
+                historyList = value;
+                OnPropertyChanged(nameof(HistoryPlayList));
+            }
+        }
 
         public void SetSearcData(ObservableCollection<MusicModel> data)
         {
@@ -133,8 +159,8 @@ namespace BFPMusicPlayer.ViewModel.Page
             });
 
 
-            CurrentPlay.Title = "Unknown";
-            CurrentPlay.Album = "Unknown";
+            CurrentPlay.Title = "Not Playing";
+            CurrentPlay.Album = "";
 
             SetDefaultAlbumImage();
 

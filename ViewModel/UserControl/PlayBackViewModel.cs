@@ -155,6 +155,8 @@ namespace BFPMusicPlayer.ViewModel.UserControl
             StartTimer();
 
             mediaPlayer.MediaEnded += PlayEnded;
+
+            music.UpdateAllDB();
         }
 
         private void SetDefaultView()
@@ -405,6 +407,10 @@ namespace BFPMusicPlayer.ViewModel.UserControl
 
                 playBackModel.EndTime = mediaPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss");
                 OnPropertyChanged(nameof(EndTime));
+            }
+            else
+            {
+                Playing = false;
             }
 
             if (isMediaEnded)
